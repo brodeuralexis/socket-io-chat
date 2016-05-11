@@ -32,14 +32,15 @@ module.exports = function users(io, socket) {
         });
 
         callback(null, {
+            users: _.values(_users),
             user: socket.user,
             count: _count
         });
     });
 
-    socket.on(slots.DISCONNECT, function disconnect(callback) {
+    socket.on(slots.DISCONNECT, function disconnect() {
         if (!users.isAuthenticated(socket)) {
-            return callback(new UnauthorizedError());
+            return;
         }
 
         --_count;
@@ -47,18 +48,13 @@ module.exports = function users(io, socket) {
         const user = socket.user;
         socket.user = null;
 
-        socket.broadcast.emit(signals.USERS.DISCONNECTED, {
-            user: user,
-            count: _count
-        });
-
-        callback(null, {
+        socket.broadcast.emit(signals.DISCONNECTED, {
             user: user,
             count: _count
         });
     });
 
-    socket.on(slots.GET.COUNT, function() {
+    socket.on(slots.GET.COUNT, function(callback) {
         if (!users.isAuthenticated(socket)) {
             return callback(new UnauthorizedError());
         }
@@ -68,7 +64,7 @@ module.exports = function users(io, socket) {
         });
     });
 
-    socket.on(slots.GET.USERS, function() {
+    socket.on(slots.GET.USERS, function(callback) {
         if (!users.isAuthenticated(socket)) {
             return callback(new UnauthorizedError());
         }

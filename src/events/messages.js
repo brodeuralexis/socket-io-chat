@@ -14,6 +14,11 @@ module.exports = function messages(io, socket) {
             return callback(new UnauthorizedError());
         }
 
+        message = {
+            content: message,
+            timestamp: (new Date()).valueOf()
+        };
+
         socket.broadcast.emit(signals.CREATED, {
             user: socket.user,
             message: message

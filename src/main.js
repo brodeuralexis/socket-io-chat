@@ -20,5 +20,5 @@ messages.typing = require('./events/messages/typing');
 io.on('connection', function (socket) {
     users(io, socket);
 	messages(io, socket);
-    message.typing(io, socket)
+    messages.typing(io, socket)
 });
