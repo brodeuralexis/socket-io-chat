@@ -1,0 +1,18 @@
+{
+  "name": "chat-socket-io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node ./src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexis Brodeur <brodeuralexis@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.4",
+    "lodash": "^4.12.0",
+    "socket.io": "^1.4.6",
+    "uuid": "^2.0.2"
+  }
+}
