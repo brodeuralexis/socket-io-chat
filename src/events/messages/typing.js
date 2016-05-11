@@ -9,7 +9,7 @@ const users = require('../users');
 
 module.exports = function typing(io, socket) {
 
-    socket.on(slots.START, function() {
+    socket.on(slots.START, function(callback) {
         if (!users.isAuthenticated(socket)) {
             return callback(new UnauthorizedError());
         }
@@ -21,7 +21,7 @@ module.exports = function typing(io, socket) {
         callback(null);
     });
 
-    socket.on(slots.STOP, function() {
+    socket.on(slots.STOP, function(callback) {
         if (!users.isAuthenticated(socket)) {
             return callback(new UnauthorizedError());
         }
@@ -29,6 +29,8 @@ module.exports = function typing(io, socket) {
         socket.broadcast.emit(signals.STOPPED, {
             user: socket.user
         });
+
+        callback(null);
     });
 
 };

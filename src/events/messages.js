@@ -1,5 +1,6 @@
 'use strict';
 
+const uuid = require('uuid');
 const slots = require('./../slots').MESSAGES;
 const signals = require('./../signals').MESSAGES;
 
@@ -15,7 +16,8 @@ module.exports = function messages(io, socket) {
         }
 
         message = {
-            content: message,
+            id: uuid.v4(),
+            content: message.content,
             timestamp: (new Date()).valueOf()
         };
 
